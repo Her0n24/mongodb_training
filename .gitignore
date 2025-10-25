@@ -1,0 +1,6 @@
+### Credentials
+*.env
+*.txt
+
+### Specific 
+string.txt
