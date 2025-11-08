@@ -52,13 +52,35 @@ def fuzzy_matching():
             "$search": {
                 "index": "language_search",
                 "text": {
-                    "query": "Machine learning",
+                    "query": "aircraft",
                     "path": "category",
-                    #"fuzzy":{}
-                }
+                    "synonyms": "mapping"                }
             }
         }
     ])
     printer.pprint(list(result))
 
-fuzzy_matching()
+# fuzzy_matching()
+
+def autocomplete():
+    result = question.aggregate([
+        {
+            "$search": {
+                "index": "language_search",
+                "autocomplete": {
+                    "query": "the longest",
+                    "path": "question",
+                    "tokenOrder": "sequential",
+                }
+        }
+        },
+        {
+            "$project": {
+            "_id": 0,
+            "question": 1
+            }
+        }
+    ])
+    printer.pprint(list(result))
+
+autocomplete()
